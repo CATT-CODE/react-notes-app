@@ -3,25 +3,30 @@ import { NoteContext } from '../context/NoteContext';
 import { Card, Row, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './NoteList.css';
+import ColorFilterDropdown from './ColorFilterDropdown'; // Import the custom dropdown
 
 const NoteList = () => {
   const { notes, deleteNote } = useContext(NoteContext);
   const [search, setSearch] = useState('');
+  const [colorFilter, setColorFilter] = useState('');
 
   const filteredNotes = notes.filter(note =>
-    note.title.toLowerCase().includes(search.toLowerCase()) ||
-    note.text.toLowerCase().includes(search.toLowerCase())
+    (colorFilter === '' || note.color === colorFilter) &&
+    (note.title.toLowerCase().includes(search.toLowerCase()) ||
+      note.text.toLowerCase().includes(search.toLowerCase()))
   );
 
   return (
     <>
-      <Form className="mb-4">
+      <Form className="mb-4 d-flex align-items-center">
         <Form.Control
           type="text"
           placeholder="Search notes..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="flex-grow-1 me-4"
         />
+        <ColorFilterDropdown selectedColor={colorFilter} onSelectColor={setColorFilter} />
       </Form>
       <Row xs={1} md={2} lg={4} className="g-4">
         {filteredNotes.map(note => (
