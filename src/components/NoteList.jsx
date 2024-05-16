@@ -4,7 +4,7 @@ import { Card, Row, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function NoteList() {
-  const { notes } = useContext(NoteContext);
+  const { notes, deleteNote } = useContext(NoteContext);
   const [search, setSearch] = useState('');
 
   const filteredNotes = notes.filter(note =>
@@ -29,9 +29,17 @@ function NoteList() {
               <Card.Body className='d-flex flex-column'>
                 <Card.Title>{note.title.length > 30 ? note.title.substring(0, 30)+'...' : note.title}</Card.Title>
                 <Card.Text>
-                  {note.text.length > 150 ? note.text.substring(0, 150)+'...' : note.text}
+                  {note.text.length > 125 ? note.text.substring(0, 125)+'...' : note.text}
                 </Card.Text>
-                <Link to={`/${note.id}`} className="btn btn-primary mt-auto align-self-start">View/Edit</Link>
+                <div className='mt-auto d-flex justify-content-between'>
+                  <Link to={`/${note.id}`} className="btn">
+                    <img src='/editing.png' />
+                  </Link>
+                  <button className='btn' onClick={() => {deleteNote(note.id)}}>
+                    <img src='/delete.png' />
+                  </button>
+                </div>
+
               </Card.Body>
             </Card>
           </Col>
