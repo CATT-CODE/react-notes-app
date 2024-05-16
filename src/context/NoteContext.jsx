@@ -2,20 +2,16 @@ import { createContext, useState, useEffect } from 'react';
 
 const NoteContext = createContext();
 
-const NoteProvider = ({children}) => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    const savedNotes = JSON.parse(localStorage.getItem('notes'));
-    if (savedNotes) {
-      setNotes(savedNotes);
-    }
+const NoteProvider = ({ children }) => {
+  const [darkMode, setDarkMode] = useState(() => {
     const savedDarkMode = JSON.parse(localStorage.getItem('darkMode'));
-    if (savedDarkMode !== null) {
-      setDarkMode(savedDarkMode);
-    }
-  }, []);
+    return savedDarkMode !== null ? savedDarkMode : false;
+  });
+
+  const [notes, setNotes] = useState(() => {
+    const savedNotes = JSON.parse(localStorage.getItem('notes'));
+    return savedNotes !== null ? savedNotes : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes));

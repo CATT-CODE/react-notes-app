@@ -20,9 +20,8 @@ const MainContent = () => {
   const { darkMode } = useContext(NoteContext);
 
   return (
-    <div className="app">
+    <div className={darkMode ? 'app dark-mode' : 'app'}>
       <Header />
-      <h1>{darkMode == true ? 'dark' : 'light'} hellooo</h1>
       <Container className="my-4">
         <Routes>
           <Route path="/" element={<NoteList />} />

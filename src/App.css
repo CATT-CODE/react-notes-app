@@ -1,15 +1,14 @@
-#root {
-  max-width: 1280px;
-}
 
 body {
   transition: background-color 0.5s, color 0.5s;
+}
+
+.app {
+  min-height: 100vh;
 }
 
 .dark-mode {
   background-color: #2b2b2b;
   color: #e0e0e0;
 }
-
-
 
