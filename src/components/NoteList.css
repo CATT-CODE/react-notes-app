@@ -1,0 +1,41 @@
+.card.sticky-note {
+    background-color: #fef68a; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    transition: transform 0.2s;
+  }
+  
+  .card.sticky-note:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .card-title {
+    color: #333;
+  }
+  
+  .card-text {
+    flex-grow: 1;
+    color: #333;
+  }
+  
+  .card .btn {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  
+  .icon-button {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .mt-auto {
+    margin-top: auto;
+  }
+  

@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 
 const NoteContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 const NoteProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(() => {
     const savedDarkMode = JSON.parse(localStorage.getItem('darkMode'));
