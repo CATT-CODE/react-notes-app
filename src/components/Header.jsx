@@ -21,7 +21,7 @@ function Header() {
             </LinkContainer>
           </Nav>
           <Button variant="secondary" onClick={toggleDarkMode}>
-            {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            {darkMode ? <img src='/sun.png' /> : <img src='/moon.png' />}
           </Button>
         </Navbar.Collapse>
       </Container>

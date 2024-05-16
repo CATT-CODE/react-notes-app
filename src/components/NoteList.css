@@ -1,8 +1,31 @@
 .card.sticky-note {
-    background-color: #fef68a; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     transition: transform 0.2s;
+  }
+
+  .card.sticky-note.yellow {
+    background-color: #fef68a;
+  }
+  
+  .card.sticky-note.green {
+    background-color: #d4f7d4;
+  }
+  
+  .card.sticky-note.purple {
+    background-color: #e4d7f5;
+  }
+  
+  .card.sticky-note.pink {
+    background-color: #fbd7f5;
+  }
+  
+  .card.sticky-note.orange {
+    background-color: #ffe5b4;
+  }
+  
+  .card.sticky-note.blue {
+    background-color: #d4e9f7;
   }
   
   .card.sticky-note:hover {

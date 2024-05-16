@@ -26,7 +26,7 @@ const NoteList = () => {
       <Row xs={1} md={2} lg={4} className="g-4">
         {filteredNotes.map(note => (
           <Col key={note.id}>
-            <Card className="h-100 d-flex flex-column sticky-note">
+            <Card className={`h-100 d-flex flex-column sticky-note ${note.color}`}>
               <Card.Body className="d-flex flex-column">
                 <Card.Title>{note.title.length > 30 ? note.title.substring(0, 30) + '...' : note.title}</Card.Title>
                 <Card.Text>
