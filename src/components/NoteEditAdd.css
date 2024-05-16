@@ -1,0 +1,62 @@
+.sticky-note-container {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.sticky-note-container.yellow {
+  background-color: #fffbae;
+}
+
+.sticky-note-container.green {
+  background-color: #d4f7d4;
+}
+
+.sticky-note-container.purple {
+  background-color: #e4d7f5;
+}
+
+.sticky-note-container.pink {
+  background-color: #fbd7f5;
+}
+
+.sticky-note-container.orange {
+  background-color: #ffe5b4;
+}
+
+.sticky-note-container.blue {
+  background-color: #d4e9f7;
+}
+
+.sticky-note-title, .sticky-note-text {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #333;
+}
+
+.sticky-note-title {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #333;
+  margin-bottom: 1rem;
+  border: none;
+}
+
+.sticky-note-text {
+  height: auto;
+  min-height: 200px;
+  resize: none;
+}
+
+.sticky-note-title:focus, .sticky-note-text:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+hr {
+  margin-top: 0;
+  border-color: #333;
+}
+

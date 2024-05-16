@@ -1,79 +1,72 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { NoteContext } from '../context/NoteContext';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
+import ColorFilterDropdown from './ColorFilterDropdown';
+import './NoteEditAdd.css';
 
 function NoteEdit() {
   const { id } = useParams();
-  const { notes, deleteNote, updateNote } = useContext(NoteContext);
+  const { notes, updateNote } = useContext(NoteContext);
   const navigate = useNavigate();
+  const [note, setNote] = useState(null);
 
-  const note = notes.find(note => note.id === Number(id));
+  useEffect(() => {
+    const currentNote = notes.find(note => note.id === Number(id));
+    if (currentNote) {
+      setNote(currentNote);
+    }
+  }, [id, notes]);
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    const updatedTitle = e.target.elements.noteTitle.value;
-    const updatedText = e.target.elements.noteText.value;
-    const updatedColor = e.target.elements.noteColor.value;
-
-    updateNote({
-      ...note,
-      title: updatedTitle,
-      text: updatedText,
-      color: updatedColor
-    });
-
-    navigate('/');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const updatedNote = { ...note, [name]: value };
+    setNote(updatedNote);
+    updateNote(updatedNote);
   };
 
+  const handleColorChange = (color) => {
+    if (color === '') {
+      color = 'yellow'
+    }
+    const updatedNote = { ...note, color: color };
+    setNote(updatedNote);
+    updateNote(updatedNote);
+  };
+
+  if (!note) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <>
-      <Form onSubmit={handleUpdate}>
+    <Container className={`sticky-note-container ${note.color}`}>
+      <Form>
         <Form.Group>
-          <Form.Label>Note Title</Form.Label>
           <Form.Control
             type="text"
-            defaultValue={note.title}
-            name="noteTitle"
+            placeholder="Title"
+            value={note.title}
+            name="title"
+            onChange={handleChange}
+            className="sticky-note-title"
           />
         </Form.Group>
+        <hr />
         <Form.Group>
-          <Form.Label>Note Text</Form.Label>
           <Form.Control
             as="textarea"
-            rows={3}
-            defaultValue={note.text}
-            name="noteText"
+            rows={10}
+            placeholder="Write your note here..."
+            value={note.text}
+            name="text"
+            onChange={handleChange}
+            className="sticky-note-text"
           />
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Note Color</Form.Label>
-          <Form.Control
-            as="select"
-            defaultValue={note.color}
-            name="noteColor"
-          >
-            <option value="yellow">Yellow</option>
-            <option value="green">Green</option>
-            <option value="purple">Purple</option>
-            <option value="pink">Pink</option>
-            <option value="orange">Orange</option>
-            <option value="blue">Blue</option>
-          </Form.Control>
-        </Form.Group>
-        <Button variant="primary" type="submit" className="mt-3 mr-2">Save</Button>
-        <Button
-          variant="danger"
-          className="mt-3 ml-2"
-          onClick={() => {
-            deleteNote(note.id);
-            navigate('/');
-          }}
-        >
-          Delete
-        </Button>
+        <ColorFilterDropdown selectedColor={note.color} onSelectColor={handleColorChange} />
+        <Button variant="danger" onClick={() => { navigate('/') }} className="mt-3">Back</Button>
       </Form>
-    </>
+    </Container>
   );
 }
 

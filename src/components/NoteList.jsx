@@ -3,7 +3,7 @@ import { NoteContext } from '../context/NoteContext';
 import { Card, Row, Col, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './NoteList.css';
-import ColorFilterDropdown from './ColorFilterDropdown'; // Import the custom dropdown
+import ColorFilterDropdown from './ColorFilterDropdown';
 
 const NoteList = () => {
   const { notes, deleteNote } = useContext(NoteContext);

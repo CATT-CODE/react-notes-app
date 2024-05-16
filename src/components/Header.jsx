@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { NoteContext } from '../context/NoteContext';
-import './Header.css'; // Import the CSS file for additional styles
+import './Header.css';
 
 function Header() {
   const { darkMode, toggleDarkMode } = useContext(NoteContext);
