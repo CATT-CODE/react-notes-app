@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { NoteContext } from '../context/NoteContext';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Spinner } from 'react-bootstrap';
 import ColorFilterDropdown from './ColorFilterDropdown';
 import './NoteEditAdd.css';
+import { summarizeText } from '../utils/api';
 
 function NoteEdit() {
   const { id } = useParams();
   const { notes, updateNote } = useContext(NoteContext);
   const navigate = useNavigate();
   const [note, setNote] = useState(null);
+  const [originalText, setOriginalText] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const currentNote = notes.find(note => note.id === Number(id));
@@ -26,12 +29,41 @@ function NoteEdit() {
   };
 
   const handleColorChange = (color) => {
-    if (color === '') {
-      color = 'yellow'
-    }
     const updatedNote = { ...note, color: color };
     setNote(updatedNote);
     updateNote(updatedNote);
+  };
+
+  const summarizeNote = async () => {
+    setLoading(true);
+    try {
+      const summary = await summarizeText(note.title + " " + note.text);
+      setOriginalText(note.text);
+      setNote({
+        ...note,
+        text: summary
+      });
+      updateNote({
+        ...note,
+        text: summary
+      });
+    } catch (error) {
+      console.error('Error summarizing note:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const undoChanges = () => {
+    setNote({
+      ...note,
+      text: originalText
+    });
+    updateNote({
+      ...note,
+      text: originalText
+    });
+    setOriginalText('')
   };
 
   if (!note) {
@@ -64,7 +96,19 @@ function NoteEdit() {
           />
         </Form.Group>
         <ColorFilterDropdown selectedColor={note.color} onSelectColor={handleColorChange} />
-        <Button variant="danger" onClick={() => { navigate('/') }} className="mt-3">Back</Button>
+        <div className="d-flex justify-content-between mt-3">
+          <Button variant="danger" onClick={() => navigate('/')}>Back</Button>
+          <div>
+            {!originalText ?
+              <Button variant="primary" onClick={summarizeNote} disabled={loading}>
+                {loading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : <><img style={{height: '16px'}} src='/sparkle.png' /> <span>Summarize</span></>}
+              </Button>
+              :
+              <Button variant="secondary" onClick={undoChanges} className="mr-2">Undo</Button>
+
+            }
+          </div>
+        </div>
       </Form>
     </Container>
   );

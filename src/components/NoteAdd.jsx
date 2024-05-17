@@ -67,7 +67,7 @@ function NoteAdd() {
           />
         </Form.Group>
         <ColorFilterDropdown selectedColor={note.color} onSelectColor={handleColorChange} />
-        <Button variant="primary" type="submit" className="mt-3 mr-2">Save</Button>
+        <Button variant="primary" type="submit" className="mt-3 me-2">Save</Button>
         <Button variant="danger" onClick={() => { navigate('/') }} className="mt-3">Back</Button>
       </Form>
     </Container>
