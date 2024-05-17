@@ -2,6 +2,8 @@
 
 This Notes App is a React-based web application that allows users to manage their notes/to-do items, including adding, editing, deleting, tagging, and searching notes. The app also integrates OpenAI's capabilities for summarizing notes and generating new notes based on user-provided prompts. It utilizes React Context for state management and local storage to persist data.
 
+<img width="600" alt="Screenshot 2024-05-16 at 10 59 08 PM" src="https://github.com/CATT-CODE/react-notes-app/assets/65243972/3ad97ee2-7704-4469-ade1-e5e5bd0ff5f6">
+
 ## Features
 
 - Notes Management: Users can add, view, edit, and delete their notes.
