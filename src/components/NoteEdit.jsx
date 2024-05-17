@@ -29,6 +29,9 @@ function NoteEdit() {
   };
 
   const handleColorChange = (color) => {
+    if (!color) {
+      color = 'yellow'
+    }
     const updatedNote = { ...note, color: color };
     setNote(updatedNote);
     updateNote(updatedNote);

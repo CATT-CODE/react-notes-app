@@ -24,29 +24,34 @@ const NoteList = () => {
           placeholder="Search notes..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-grow-1 me-4"
+          className="flex-grow-1 me-2"
         />
         <ColorFilterDropdown selectedColor={colorFilter} onSelectColor={setColorFilter} />
       </Form>
       <Row xs={1} md={2} lg={4} className="g-4">
         {filteredNotes.map(note => (
           <Col key={note.id}>
-            <Card className={`h-100 d-flex flex-column sticky-note ${note.color}`}>
-              <Card.Body className="d-flex flex-column">
-                <Card.Title>{note.title.length > 30 ? note.title.substring(0, 30) + '...' : note.title}</Card.Title>
-                <Card.Text>
-                  {note.text.length > 130 ? note.text.substring(0, 130) + '...' : note.text}
-                </Card.Text>
-                <div className="mt-auto d-flex justify-content-between">
-                  <Link to={`/${note.id}`} className="btn">
-                    <img src="/editing.png" alt="Edit" className="icon-button" />
-                  </Link>
-                  <button className="btn" onClick={() => deleteNote(note.id)}>
-                    <img src="/delete.png" alt="Delete" className="icon-button" />
-                  </button>
-                </div>
-              </Card.Body>
-            </Card>
+            <Link to={`/${note.id}`} style={{ textDecoration: 'none' }}>
+              <Card className={`h-100 d-flex flex-column sticky-note ${note.color}`}>
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title>{note.title.length > 30 ? note.title.substring(0, 30) + '...' : note.title}</Card.Title>
+                  <Card.Text>
+                    {note.text.length > 130 ? note.text.substring(0, 130) + '...' : note.text}
+                  </Card.Text>
+                  <div className="mt-auto d-flex justify-content-end">
+                    <button
+                      className="btn"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deleteNote(note.id);
+                      }}
+                    >
+                      <img src="/delete.png" alt="Delete" className="icon-button" />
+                    </button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Link>
           </Col>
         ))}
       </Row>
